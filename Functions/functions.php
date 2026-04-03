@@ -1,5 +1,5 @@
 <?php
-
+//Выводит всех студентов
 function SelectAllStudents($pdo){
     $sql = "SELECT * FROM students";
     $statement = $pdo->prepare($sql);
@@ -9,6 +9,7 @@ function SelectAllStudents($pdo){
     echo json_encode($results);
 }
 
+//Выводит одного студента
 function SelectIDStudents($pdo, $id){
     $sql = "SELECT `name`, `surname`, `groups`, `email` FROM `students` WHERE id = :id";
     $statement = $pdo->prepare($sql);
@@ -28,6 +29,7 @@ function SelectIDStudents($pdo, $id){
         }
 }
 
+//Добавление студента
 function AdditionStudents($pdo, $data){
     $sql = "INSERT INTO `students`(`name`, `surname`, `groups`, `email`) VALUES (:name, :surname, :groups, :email)";
     $statement = $pdo->prepare($sql);
@@ -50,7 +52,7 @@ function AdditionStudents($pdo, $data){
     }
 }
 
-
+//Удаление студента
 function DeleteStudent($pdo, $id){
     $sql = "DELETE FROM `students` WHERE id = :id";
     $statement = $pdo->prepare($sql);
@@ -64,6 +66,7 @@ function DeleteStudent($pdo, $id){
     echo json_encode($response);
 }
 
+//Редактирование студента (Обновление)
 function UpdateStudent($pdo, $id, $data){
     $data['id'] = $id;
     $sql = "UPDATE `students` SET `name`= :name , `surname`= :surname, `groups`= :groups, `email`= :email  WHERE id = :id";

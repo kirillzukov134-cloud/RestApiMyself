@@ -12,7 +12,6 @@ $params = explode('/', $q);
 $type = $params[0];
 $id = $params[1];
 
-
 if($method === 'GET'){
     if($type === 'students'){
         if(!empty($id)){
@@ -21,7 +20,7 @@ if($method === 'GET'){
             SelectAllStudents($pdo);
         }
     }
-}else if($method === 'POST'){
+} else if($method === 'POST'){
     if($type === 'students'){
         AdditionStudents($pdo, $_POST);
     }
@@ -31,11 +30,19 @@ if($method === 'GET'){
             DeleteStudent($pdo, $id);
         }
     }
-}else if($method === 'PATCH'){
+} else if($method === 'PATCH'){
     if($type === 'students'){
-            $data = json_decode(file_get_contents('php://input'), true);
-            UpdateStudent($pdo, $id, $data);
+        $data = json_decode(file_get_contents('php://input'), true);
+        UpdateStudent($pdo, $id, $data);
     }
+} else {
+        http_response_code(405);
+    $response = [
+        'status'=> 'error',
+        'message'=> 'Не правильно выбран метод или метод не настроен!'
+    ];
+    echo json_encode($response);
 }
+
 
     
