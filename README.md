@@ -3,15 +3,15 @@
 Простое API для управления студентами. Можно добавлять, удалять, изменять и смотреть список студентов.
 
 ## Установка
-
-**1. Скачай проект на комп.**
-**2. Импортируй файл students.sql в phpMyAdmin.**
-**3. Открой connectDB.php и впиши свой пароль от MySQL.**
-**4. Запусти через OpenServer.**
+1. Скачай проект на комп.
+2. Импортируй файл students.sql в phpMyAdmin.
+3. Открой connectDB.php и впиши свой пароль от MySQL.
+4. Запусти через OpenServer.
    
 ## Как работать с API
 **1. Получить всех студентов:**
 GET http://localhost/students
+========
 **2. Добавить студента:**
 POST http://localhost/students
 Пример:
@@ -23,10 +23,11 @@ POST http://localhost/students
   "email": "ivan@mail.ru"
 }
 ```
+========
 **3. Получить одного студента:**
 GET http://localhost/students/17
 (где 17 - ID студента)
-
+========
 **4. Обновить студента:**
 PATCH http://localhost/students/17
 Пример:
@@ -39,6 +40,7 @@ PATCH http://localhost/students/17
 }
 ```
 (обновит студента с ID=17)
+========
 **5. Удалить студента:**
 DELETE http://localhost/students/17
 (удалит студента с ID=17)
