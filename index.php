@@ -1,12 +1,41 @@
 <?php
 
-require "./DataBase/connectDB.php";
+require "./Config/connectDB.php";
+require "./Functions/functions.php";
 
 header("Content-Type: application/json");
 
-$sql = "SELECT * FROM students";
-$statement = $pdo->prepare($sql);
-$statement->execute();
-$results = $statement->fetchAll(PDO::FETCH_ASSOC);
+$method = $_SERVER['REQUEST_METHOD'];
 
-echo json_encode($results, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+$q = $_GET['q'];
+$params = explode('/', $q);
+$type = $params[0];
+$id = $params[1];
+
+
+if($method === 'GET'){
+    if($type === 'students'){
+        if(!empty($id)){
+            SelectIDStudents($pdo, $id);
+        } else {
+            SelectAllStudents($pdo);
+        }
+    }
+}else if($method === 'POST'){
+    if($type === 'students'){
+        AdditionStudents($pdo, $_POST);
+    }
+} else if($method === 'DELETE'){
+    if($type === 'students'){
+        if(!empty($id)){
+            DeleteStudent($pdo, $id);
+        }
+    }
+}else if($method === 'PATCH'){
+    if($type === 'students'){
+            $data = json_decode(file_get_contents('php://input'), true);
+            UpdateStudent($pdo, $id, $data);
+    }
+}
+
+    
